@@ -1,0 +1,27 @@
+{
+  "name": "telegram-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app/index.js",
+    "start-watch": "nodemon app/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YGLF-Kyiv/telegram-bot.git"
+  },
+  "author": "Andrei Sierkov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/YGLF-Kyiv/telegram-bot/issues"
+  },
+  "homepage": "https://github.com/YGLF-Kyiv/telegram-bot#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "lodash": "^4.17.5",
+    "luxon": "^1.1.0",
+    "node-telegram-bot-api": "^0.30.0"
+  }
+}
