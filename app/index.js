@@ -3,9 +3,10 @@ const _ = require('lodash/fp');
 const express = require('express');
 const TBot = require('node-telegram-bot-api');
 const { DateTime } = require('luxon');
+const optional = require('optional');
 
 // Telegram config
-const ENV = require('../env.json');
+const ENV = optional('../env.json') || {};
 const TELEGRAM_TOKEN = process.env.TELEGRAM_BOT_YGLF_TOKEN || ENV.TELEGRAM_BOT_YGLF_TOKEN;
 
 // Text and UI elements
