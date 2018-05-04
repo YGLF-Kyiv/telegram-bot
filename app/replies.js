@@ -8,18 +8,32 @@ const TEXTS = require('./constants/texts');
 
 // Data
 const { constructSchedule } = require('./utils');
+let cache = {
+  scheduleData: null,
+  speakersData: null,
+  schedule: null,
+};
 async function getScheduleData() {
-  const response = await fetch('https://raw.githubusercontent.com/YGLF-Kyiv/website-2018/master/data/schedule.json');
-  return await response.json();
+  if (!cache.scheduleData) {
+    const response = await fetch('https://raw.githubusercontent.com/YGLF-Kyiv/website-2018/master/data/schedule.json');
+    cache.scheduleData = await response.json();
+  }
+  return cache.scheduleData;
 }
 async function getSpeakersData() {
-  const response = await fetch('https://raw.githubusercontent.com/YGLF-Kyiv/website-2018/master/data/speakers.json');
-  return await response.json();
+  if (!cache.speakersData) {
+    const response = await fetch('https://raw.githubusercontent.com/YGLF-Kyiv/website-2018/master/data/speakers.json');
+    cache.speakersData = await response.json();
+  }
+  return cache.speakersData;
 }
 async function getSchedule() {
-  const scheduleData = await getScheduleData();
-  const speakersData = await getSpeakersData();
-  return constructSchedule(scheduleData.days, speakersData.all)
+  if (!cache.schedule) {
+    const scheduleData = await getScheduleData();
+    const speakersData = await getSpeakersData();
+    cache.schedule = constructSchedule(scheduleData.days, speakersData.all);
+  }
+  return cache.schedule;
 }
 const midnight24to25 = DateTime.fromObject({
   zone: 'Europe/Kiev', day: 25, month: 5, year: 2018, hour: 0, minute: 0,
