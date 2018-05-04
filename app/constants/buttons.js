@@ -1,5 +1,6 @@
 module.exports = {
   BTN_TEXTS: {
+    MENU: 'Menu',
     MAIN_MENU_WHATSON: '1. What’s on now',
     MAIN_MENU_SCHEDULE: '2. Schedule',
     MAIN_MENU_INFO: '3. Information',

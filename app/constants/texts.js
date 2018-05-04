@@ -13,24 +13,24 @@ function getTime(dt) {
   return dt.toLocaleString(DateTime.TIME_24_SIMPLE);
 }
 module.exports = {
-  START: 'Hi! I am YGLF Wizard. I will guide you through the conference. What whould you like to know?',
+  START: 'Hi! I am YGLF Wizard. Press the menu button.',
   MAIN: 'What whould you like to know?',
   WHATSON: (now, next) => {
     let lines = [];
     if (now) {
-      lines.push(`- NOW: ${getEventText(now)} till ${getTime(now.endDT)}`);
+      lines.push(`– NOW: ${getEventText(now)} till ${getTime(now.endDT)}`);
     }
     if (next) {
-      lines.push(`- NEXT: ${getEventText(next)} ${getTime(next.startDT)} - ${getTime(next.endDT)}`);
+      lines.push(`– NEXT: ${getEventText(next)} ${getTime(next.startDT)} – ${getTime(next.endDT)}`);
     }
     return lines.join('\n');
   },
   SCHEDULE: (day) => {
     let lines = [];
-    lines.push(`<b>${day.title} - ${day.date}</b>`);
+    lines.push(`<b>${day.title} – ${day.date}</b>`);
     lines.push('');
     day.events.forEach((event) => {
-      lines.push(`${getTime(event.startDT)} - ${getEventText(event)}`);
+      lines.push(`${event.emoji} ${getTime(event.startDT)} – ${getEventText(event)}`);
     });
     return lines.join('\n');
   },

@@ -2,14 +2,16 @@ const { DateTime } = require('luxon');
 
 function constructSchedule(schedule, speakers) {
   return schedule.map(day => {
-    const events = day.events.map((event, i) => {
+    const events = day.events.map((event, index) => {
       const speaker = speakers.find(el => el.id === event.speakerId);
+      const speakerName = speaker ? `${speaker.firstName} ${speaker.lastName}` : null;
       const speakerData = speaker
         ? {
-          speakerName: speaker ? `${speaker.firstName} ${speaker.lastName}` : null,
+          speakerName,
           ...speaker,
         }
         : {};
+
       const startDT = DateTime.fromObject({
         day: day.day,
         month: 5,
@@ -18,7 +20,7 @@ function constructSchedule(schedule, speakers) {
         minute: Number(event.time.minutes),
         zone: 'Europe/Kiev',
       });
-      const nextEvent = day.events[i + 1];
+      const nextEvent = day.events[index + 1];
       const endDT = nextEvent
         ? DateTime.fromObject({
           day: day.day,
@@ -38,16 +40,24 @@ function constructSchedule(schedule, speakers) {
         });
       return {
         ...event,
+        speakerData,
         startDT,
         endDT,
-        speakerData,
-        anchor: speaker
-          ? `${speaker.anchor}-${day.day}-${event.time.hours}-${event.time.minutes}`
-          : `${day.day}-${event.time.hours}-${event.time.minutes}`
+        anchor: getAnchor(event, speakerName, index)
       };
     });
     return { ...day, events };
   });
+}
+
+function getAnchor(event, name, uniq) {
+  if (event.anchor) return event.anchor;
+  if (name) return `${encodeAndReplace(name)}-${event.title.split(/\b/)[0]}`
+  return `${encodeAndReplace(event.title)}-${uniq}`
+}
+
+function encodeAndReplace(str) {
+  return encodeURI(str.replace(/\s/g, '-'))
 }
 
 module.exports = { constructSchedule };
