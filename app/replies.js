@@ -41,10 +41,10 @@ const midnight24to25 = DateTime.fromObject({
 
 // Helpers
 function getCurrentDT() {
-  return DateTime.fromObject({
-    zone: 'Europe/Kiev', day: 25, month: 5, hour: 17, minute: 29,
-  });
-  // return DateTime.fromObject({ zone: 'Europe/Kiev' });
+  // return DateTime.fromObject({
+  //   zone: 'Europe/Kiev', day: 25, month: 5, hour: 17, minute: 29,
+  // });
+  return DateTime.fromObject({ zone: 'Europe/Kiev' });
 }
 async function getTodayEvents() {
   const schedule = await getSchedule();
