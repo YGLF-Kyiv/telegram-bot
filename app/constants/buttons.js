@@ -1,10 +1,10 @@
 module.exports = {
   BTN_TEXTS: {
     MENU: 'Menu',
-    MAIN_MENU_WHATSON: '1. What’s on now',
-    MAIN_MENU_SCHEDULE: '2. Schedule',
-    MAIN_MENU_INFO: '3. Information',
-    MAIN_MENU_ASK: '4. Ask questions',
+    MAIN_MENU_WHATSON: 'What’s on now',
+    MAIN_MENU_SCHEDULE: 'Schedule',
+    MAIN_MENU_INFO: 'Information',
+    MAIN_MENU_ASK: 'Ask questions',
     WHATSON_SCHEDULE_DAY1: 'Day One Schedule',
     WHATSON_SCHEDULE_DAY2: 'Day Two Schedule',
     SCHEDULE_DAY1: 'Day One - May 24th',
@@ -16,6 +16,12 @@ module.exports = {
     INFO_YGLF_COM: 'YGLF.COM.UA',
     INFO_WIFI_PASSWORD: 'WiFi Password',
     INFO_BACK_TO_INFO: 'Back',
+
+    MAIN_MENU_ADMIN: '--- Administration ---',
+    ADMIN_REFRESH_APP: '--- Refresh application ---',
+    ADMIN_SEND_NOTIFICATION: '--- Send notification to all users ---',
+    ADMIN_APPROVE: 'Ok, let\'s do it! Approve',
+    ADMIN_DECLINE: 'No, sorry, I\'ve made a mistake. Decline',
   },
   BTN_DATA: {
     MAIN_MENU_WHATSON: 'MAIN_MENU_WHATSON',
@@ -31,5 +37,11 @@ module.exports = {
     INFO_YGLF_COM: 'INFO_YGLF_COM',
     INFO_WIFI_PASSWORD: 'INFO_WIFI_PASSWORD',
     INFO_BACK_TO_INFO: 'INFO_BACK_TO_INFO',
+
+    MAIN_MENU_ADMIN: 'MAIN_MENU_ADMIN',
+    ADMIN_REFRESH_APP: 'ADMIN_REFRESH_APP',
+    ADMIN_SEND_NOTIFICATION: 'ADMIN_SEND_NOTIFICATION',
+    ADMIN_SEND_NOTIFICATION_APPROVE: 'ADMIN_SEND_NOTIFICATION_APPROVE',
+    ADMIN_SEND_NOTIFICATION_DECLINE: 'ADMIN_SEND_NOTIFICATION_DECLINE'
   },
 };

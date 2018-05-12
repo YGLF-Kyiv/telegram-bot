@@ -35,4 +35,28 @@ module.exports = {
     return lines.join('\n');
   },
   INFO: 'Please, select from below',
+
+  ADMIN: 'Hi. This is very restricted area. How\'re you doing?',
+  ADMIN_APP_REFRESHED: ({ usersCount }) => (
+    `Schedule was fetched from github and users list was updated. There are ${usersCount} users.`
+  ),
+  ADMIN_SEND_NOTIFICATION: 'Please, send text of your notification in chat',
+  ADMIN_SEND_NOTIFICATION_APPROVE: (text) => {
+    let lines = [];
+    lines.push('Ok, now please approve that the message that you\'re going to send is:');
+    lines.push('--------------------');
+    lines.push(text);
+    lines.push('--------------------');
+    lines.push('Please, notive that ALL users registered will get this message');
+    return lines.join('\n');
+  },
+  ADMIN_SEND_NOTIFICATION_DECLINED: 'Ok, declined. Anything else?',
+  ADMIN_SEND_NOTIFICATION_SENT: (text) => {
+    let lines = [];
+    lines.push('The next notification has been sent:');
+    lines.push('--------------------');
+    lines.push(text);
+    lines.push('--------------------');
+    return lines.join('\n');
+  },
 };

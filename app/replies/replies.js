@@ -1,58 +1,18 @@
 const _ = require('lodash/fp');
 const { DateTime } = require('luxon');
-const fetch = require('node-fetch');
 
 // Text and UI elements
-const { BTN_TEXTS, BTN_DATA } = require('./constants/buttons');
-const TEXTS = require('./constants/texts');
+const { BTN_TEXTS, BTN_DATA } = require('../constants/buttons');
+const TEXTS = require('../constants/texts');
 
 // Data
-const { constructSchedule } = require('./utils');
-let cache = {
-  scheduleData: null,
-  speakersData: null,
-  schedule: null,
-};
-async function getScheduleData() {
-  if (!cache.scheduleData) {
-    const response = await fetch('https://raw.githubusercontent.com/YGLF-Kyiv/website-2018/master/data/schedule.json');
-    cache.scheduleData = await response.json();
-  }
-  return cache.scheduleData;
-}
-async function getSpeakersData() {
-  if (!cache.speakersData) {
-    const response = await fetch('https://raw.githubusercontent.com/YGLF-Kyiv/website-2018/master/data/speakers.json');
-    cache.speakersData = await response.json();
-  }
-  return cache.speakersData;
-}
-async function getSchedule() {
-  if (!cache.schedule) {
-    const scheduleData = await getScheduleData();
-    const speakersData = await getSpeakersData();
-    cache.schedule = constructSchedule(scheduleData.days, speakersData.all);
-  }
-  return cache.schedule;
-}
-const midnight24to25 = DateTime.fromObject({
-  zone: 'Europe/Kiev', day: 25, month: 5, year: 2018, hour: 0, minute: 0,
-});
+const { getSchedule } = require('../data/schedule');
 
 // Helpers
-function getCurrentDT() {
-  // return DateTime.fromObject({
-  //   zone: 'Europe/Kiev', day: 25, month: 5, hour: 17, minute: 29,
-  // });
-  return DateTime.fromObject({ zone: 'Europe/Kiev' });
-}
-async function getTodayEvents() {
-  const schedule = await getSchedule();
-  return getCurrentDT() > midnight24to25 ? schedule[1].events : schedule[0].events;
-}
+const { getMainKeyboard, getTodayEvents, getCurrentDT } = require('./helpers');
 
 // reply getters
-function getReply(text) {
+function getReply(text, user) {
   switch (text) {
     case '/start':
       return {
@@ -69,20 +29,16 @@ function getReply(text) {
         text: TEXTS.MAIN,
         params: {
           reply_markup: {
-            inline_keyboard: [
-              [ { text: BTN_TEXTS.MAIN_MENU_WHATSON, callback_data: BTN_DATA.MAIN_MENU_WHATSON } ],
-              [ { text: BTN_TEXTS.MAIN_MENU_SCHEDULE, callback_data: BTN_DATA.MAIN_MENU_SCHEDULE } ],
-              [ { text: BTN_TEXTS.MAIN_MENU_INFO, callback_data: BTN_DATA.MAIN_MENU_INFO } ],
-              [ { text: BTN_TEXTS.MAIN_MENU_ASK, callback_data: BTN_DATA.MAIN_MENU_ASK } ],
-            ],
+            inline_keyboard: getMainKeyboard(user),
           }
         }
       };
   }
 }
 
-async function getCallbackReply(data) {
+async function getCallbackReply(data, user) {
   const schedule = await getSchedule();
+
   switch (data) {
     case BTN_DATA.MAIN_MENU_WHATSON:
       const currentDT = getCurrentDT();
@@ -167,12 +123,7 @@ async function getCallbackReply(data) {
         text: TEXTS.MAIN,
         params: {
           reply_markup: {
-            inline_keyboard: [
-              [ { text: BTN_TEXTS.MAIN_MENU_WHATSON, callback_data: BTN_DATA.MAIN_MENU_WHATSON } ],
-              [ { text: BTN_TEXTS.MAIN_MENU_SCHEDULE, callback_data: BTN_DATA.MAIN_MENU_SCHEDULE } ],
-              [ { text: BTN_TEXTS.MAIN_MENU_INFO, callback_data: BTN_DATA.MAIN_MENU_INFO } ],
-              [ { text: BTN_TEXTS.MAIN_MENU_ASK, callback_data: BTN_DATA.MAIN_MENU_ASK } ],
-            ],
+            inline_keyboard: getMainKeyboard(user),
           }
         }
       };
