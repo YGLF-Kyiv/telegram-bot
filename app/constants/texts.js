@@ -1,6 +1,6 @@
 const _ = require('lodash/fp');
 const { DateTime } = require('luxon');
-const { SCHEDULE_URL } = require('./common');
+const { WEBSITE_URL, SCHEDULE_URL, SLIDO_CODE } = require('./common');
 
 function getEventText(event) {
   if (event.speakerId) {
@@ -13,8 +13,13 @@ function getTime(dt) {
   return dt.toLocaleString(DateTime.TIME_24_SIMPLE);
 }
 module.exports = {
-  START: 'Hi! I am YGLF Wizard. Press the menu button.',
-  MAIN: 'What whould you like to know?',
+  START: [
+    'Hi, I\'m YGLF Bot! I will be with you in the days of the conference.',
+    '',
+    'Most importantly: I am completely unobtrusive and always ready to share with you the most useful information!',
+    WEBSITE_URL
+  ].join('\n'),
+  MAIN: 'How can I help you?',
   WHATSON: (now, next) => {
     let lines = [];
     if (now) {
@@ -35,6 +40,20 @@ module.exports = {
     return lines.join('\n');
   },
   INFO: 'Please, select from below',
+  INFO_CONTACT_ORGS: [
+    'In case you have any questions before, during or after the conference you can contact us:',
+    'Yuri - @yuritkachenko',
+    'Katia - @salivan_k, +380 99 984 88 70',
+    'Polina - @Polya_p, +380 98 705 44 49'
+  ].join('\n'),
+  INFO_FAQ: ['1231232222222'].join('\n'),
+  EMERGENCY: [
+    '@salivan_k or <a href="tel:+380999848870">+380999848870</a>'
+  ].join('\n'),
+  ASK_QUESTIONS: [
+    'You can ask any question to the current speaker here:',
+    `<a href="https://sli.do#${SLIDO_CODE}">sli.do#${SLIDO_CODE}</a>`,
+  ].join('\n'),
 
   ADMIN: 'Hi. This is very restricted area. How\'re you doing?',
   ADMIN_APP_REFRESHED: ({ usersCount }) => (

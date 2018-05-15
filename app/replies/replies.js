@@ -84,8 +84,6 @@ async function getCallbackReply(data, user) {
               [ { text: BTN_TEXTS.INFO_FAQ, callback_data: BTN_DATA.INFO_FAQ } ],
               [ { text: BTN_TEXTS.INFO_CONTACT_ORGS, callback_data: BTN_DATA.INFO_CONTACT_ORGS } ],
               [ { text: BTN_TEXTS.INFO_LOCATION, callback_data: BTN_DATA.INFO_LOCATION } ],
-              [ { text: BTN_TEXTS.INFO_YGLF_COM, callback_data: BTN_DATA.INFO_YGLF_COM } ],
-              [ { text: BTN_TEXTS.INFO_WIFI_PASSWORD, callback_data: BTN_DATA.INFO_WIFI_PASSWORD } ],
               [ { text: BTN_TEXTS.BACK_TO_MAIN, callback_data: BTN_DATA.BACK_TO_MAIN } ],
             ],
           },
@@ -137,25 +135,72 @@ async function getCallbackReply(data, user) {
               [ { text: BTN_TEXTS.INFO_FAQ, callback_data: BTN_DATA.INFO_FAQ } ],
               [ { text: BTN_TEXTS.INFO_CONTACT_ORGS, callback_data: BTN_DATA.INFO_CONTACT_ORGS } ],
               [ { text: BTN_TEXTS.INFO_LOCATION, callback_data: BTN_DATA.INFO_LOCATION } ],
-              [ { text: BTN_TEXTS.INFO_YGLF_COM, callback_data: BTN_DATA.INFO_YGLF_COM } ],
-              [ { text: BTN_TEXTS.INFO_WIFI_PASSWORD, callback_data: BTN_DATA.INFO_WIFI_PASSWORD } ],
               [ { text: BTN_TEXTS.BACK_TO_MAIN, callback_data: BTN_DATA.BACK_TO_MAIN } ],
             ],
           },
         },
       };
     case BTN_DATA.INFO_FAQ:
-    case BTN_DATA.INFO_CONTACT_ORGS:
-    case BTN_DATA.INFO_LOCATION:
-    case BTN_DATA.INFO_YGLF_COM:
-    case BTN_DATA.INFO_WIFI_PASSWORD:
       return {
         replyType: 'edit',
-        text: 'Ah, look!',
+        text: TEXTS.INFO_FAQ,
         params: {
           reply_markup: {
             inline_keyboard: [
               [ { text: BTN_TEXTS.INFO_BACK_TO_INFO, callback_data: BTN_DATA.INFO_BACK_TO_INFO } ],
+            ],
+          },
+        },
+      };
+    case BTN_DATA.INFO_CONTACT_ORGS:
+      return {
+        replyType: 'edit',
+        text: TEXTS.INFO_CONTACT_ORGS,
+        params: {
+          reply_markup: {
+            inline_keyboard: [
+              [ { text: BTN_TEXTS.INFO_BACK_TO_INFO, callback_data: BTN_DATA.INFO_BACK_TO_INFO } ],
+            ],
+          },
+        },
+      };
+    case BTN_DATA.INFO_LOCATION:
+      return {
+        replyType: 'venue',
+        venue: {
+          latitude: '50.449181',
+          longtitude: '30.541182',
+          address: 'Parkova Rd, 16a, Kyiv, 02000',
+          title: 'Congress and Exhibition Center "Parkovy"',
+        },
+        params: {
+          reply_markup: {
+            inline_keyboard: [
+              [ { text: BTN_TEXTS.INFO_BACK_TO_INFO, callback_data: BTN_DATA.INFO_BACK_TO_INFO } ],
+            ],
+          },
+        },
+      };
+    case BTN_DATA.MAIN_MENU_EMERGENCY:
+      return {
+        replyType: 'edit',
+        text: TEXTS.EMERGENCY,
+        params: {
+          reply_markup: {
+            inline_keyboard: [
+              [ { text: BTN_TEXTS.BACK_TO_MAIN, callback_data: BTN_DATA.BACK_TO_MAIN } ],
+            ],
+          },
+        },
+      };
+    case BTN_DATA.MAIN_MENU_ASK:
+      return {
+        replyType: 'edit',
+        text: TEXTS.ASK_QUESTIONS,
+        params: {
+          reply_markup: {
+            inline_keyboard: [
+              [ { text: BTN_TEXTS.BACK_TO_MAIN, callback_data: BTN_DATA.BACK_TO_MAIN } ],
             ],
           },
         },

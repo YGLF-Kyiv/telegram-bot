@@ -56,6 +56,14 @@ async function sendReply(message, reply) {
           chat_id: message.chat.id,
         }
       );
+    case 'venue':
+      return await telegram.sendVenue(
+        message.chat.id,
+        reply.venue.latitude,
+        reply.venue.longtitude,
+        reply.venue.title,
+        reply.venue.address,
+      );
     case 'send':
     default:
       return await telegram.sendMessage(

@@ -19,9 +19,10 @@ async function getTodayEvents() {
 function getMainKeyboard(user) {
   let keyboard = [
     [ { text: BTN_TEXTS.MAIN_MENU_WHATSON, callback_data: BTN_DATA.MAIN_MENU_WHATSON } ],
+    [ { text: BTN_TEXTS.MAIN_MENU_ASK, callback_data: BTN_DATA.MAIN_MENU_ASK } ],
     [ { text: BTN_TEXTS.MAIN_MENU_SCHEDULE, callback_data: BTN_DATA.MAIN_MENU_SCHEDULE } ],
     [ { text: BTN_TEXTS.MAIN_MENU_INFO, callback_data: BTN_DATA.MAIN_MENU_INFO } ],
-    [ { text: BTN_TEXTS.MAIN_MENU_ASK, callback_data: BTN_DATA.MAIN_MENU_ASK } ],
+    [ { text: BTN_TEXTS.MAIN_MENU_EMERGENCY, callback_data: BTN_DATA.MAIN_MENU_EMERGENCY } ],
   ];
   if (user.isAdmin) {
     keyboard.push(
