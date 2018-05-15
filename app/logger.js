@@ -23,4 +23,9 @@ const logger = (telegram, chatId) => ({ event, e, data }) => {
   )
 };
 
-module.exports = logger;
+const resetCounter = () => errorsCounter = {};
+
+module.exports = {
+  logger,
+  resetCounter
+};

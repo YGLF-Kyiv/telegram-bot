@@ -20,7 +20,8 @@ const TBot = require('node-telegram-bot-api');
 const telegram = new TBot(TELEGRAM_TOKEN, { polling: true });
 
 // Error logger
-const logError = require('./logger')(telegram, SUPERADMIN_ID);
+const { logger } = require('./logger');
+const logError = logger(telegram, SUPERADMIN_ID);
 
 // App config
 const app = express();

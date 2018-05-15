@@ -5,6 +5,7 @@ const TEXTS = require('../constants/texts');
 // Database and schedule data
 const { fetchUsers, getUsers } = require('../data/db');
 const { fetchSchedule } = require('../data/schedule');
+const { resetCounter } = require('../logger');
 
 const ADMIN_KEYBOARD = [
   [ { text: BTN_TEXTS.ADMIN_REFRESH_APP, callback_data: BTN_DATA.ADMIN_REFRESH_APP } ],
@@ -15,7 +16,6 @@ const AWAITING_MESSAGE_PLACEHOLDER = 'AWAITING_MESSAGE_PLACEHOLDER';
 
 // Here we hold all users that we expect to send us something
 let awaitingMessages = {};
-
 
 async function getAdminReply(text, user) {
   if (!user.isAdmin) { return; }
@@ -54,6 +54,7 @@ async function getAdminCallbackReply(data, user) {
     case BTN_DATA.ADMIN_REFRESH_APP:
       await fetchSchedule();
       const usersCount = await fetchUsers();
+      resetCounter();
       return {
         replyType: 'edit',
         text: TEXTS.ADMIN_APP_REFRESHED({ usersCount }),
