@@ -16,6 +16,8 @@ async function fetchSpeakersData() {
 async function fetchSchedule() {
   await fetchScheduleData();
   await fetchSpeakersData();
+  const { scheduleData, speakersData } = cache;
+  cache.schedule = constructSchedule(scheduleData.days, speakersData.all);
   console.log('-> Schedule was updated');
 }
 
@@ -33,9 +35,7 @@ async function getSpeakersData() {
 }
 async function getSchedule() {
   if (!cache.schedule) {
-    const scheduleData = await getScheduleData();
-    const speakersData = await getSpeakersData();
-    cache.schedule = constructSchedule(scheduleData.days, speakersData.all);
+    await fetchSchedule();
   }
   return cache.schedule;
 }
