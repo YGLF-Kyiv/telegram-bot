@@ -81,7 +81,6 @@ async function getCallbackReply(data, user) {
         params: {
           reply_markup: {
             inline_keyboard: [
-              [ { text: BTN_TEXTS.INFO_FAQ, callback_data: BTN_DATA.INFO_FAQ } ],
               [ { text: BTN_TEXTS.INFO_CONTACT_ORGS, callback_data: BTN_DATA.INFO_CONTACT_ORGS } ],
               [ { text: BTN_TEXTS.INFO_LOCATION, callback_data: BTN_DATA.INFO_LOCATION } ],
               [ { text: BTN_TEXTS.BACK_TO_MAIN, callback_data: BTN_DATA.BACK_TO_MAIN } ],
@@ -132,22 +131,9 @@ async function getCallbackReply(data, user) {
         params: {
           reply_markup: {
             inline_keyboard: [
-              [ { text: BTN_TEXTS.INFO_FAQ, callback_data: BTN_DATA.INFO_FAQ } ],
               [ { text: BTN_TEXTS.INFO_CONTACT_ORGS, callback_data: BTN_DATA.INFO_CONTACT_ORGS } ],
               [ { text: BTN_TEXTS.INFO_LOCATION, callback_data: BTN_DATA.INFO_LOCATION } ],
               [ { text: BTN_TEXTS.BACK_TO_MAIN, callback_data: BTN_DATA.BACK_TO_MAIN } ],
-            ],
-          },
-        },
-      };
-    case BTN_DATA.INFO_FAQ:
-      return {
-        replyType: 'edit',
-        text: TEXTS.INFO_FAQ,
-        params: {
-          reply_markup: {
-            inline_keyboard: [
-              [ { text: BTN_TEXTS.INFO_BACK_TO_INFO, callback_data: BTN_DATA.INFO_BACK_TO_INFO } ],
             ],
           },
         },

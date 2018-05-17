@@ -39,20 +39,21 @@ module.exports = {
     });
     return lines.join('\n');
   },
-  INFO: 'Please, select from below',
+  INFO: 'What kind of information?',
   INFO_CONTACT_ORGS: [
     'In case you have any questions before, during or after the conference you can contact us:',
     'Yuri - @yuritkachenko',
     'Katia - @salivan_k, +380 99 984 88 70',
-    'Polina - @Polya_p, +380 98 705 44 49'
+    'Polina - @Polya_p, +380 98 705 44 49',
+    'Andrei - @viattik',
   ].join('\n'),
-  INFO_FAQ: ['1231232222222'].join('\n'),
   EMERGENCY: [
-    '@salivan_k or <a href="tel:+380999848870">+380999848870</a>'
+    'Call +380999848870 (Katia)'
   ].join('\n'),
   ASK_QUESTIONS: [
-    'You can ask any question to the current speaker here:',
+    'You can ask your question to the speaker or vote for one of questions asked by someone else here:',
     `<a href="https://sli.do#${SLIDO_CODE}">sli.do#${SLIDO_CODE}</a>`,
+    'In the end of each talk the speaker will answer the most voted ones.'
   ].join('\n'),
 
   ADMIN: 'Hi. This is very restricted area. How\'re you doing?',

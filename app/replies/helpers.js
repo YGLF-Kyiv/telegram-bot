@@ -2,8 +2,14 @@ const { DateTime } = require('luxon');
 const { getSchedule } = require('../data/schedule');
 const { BTN_TEXTS, BTN_DATA } = require('../constants/buttons');
 
-const midnight24to25 = DateTime.fromObject({
+const day1Start = DateTime.fromObject({
+  zone: 'Europe/Kiev', day: 24, month: 5, year: 2018, hour: 0, minute: 0,
+});
+const day2Start = DateTime.fromObject({
   zone: 'Europe/Kiev', day: 25, month: 5, year: 2018, hour: 0, minute: 0,
+});
+const day2End = DateTime.fromObject({
+  zone: 'Europe/Kiev', day: 26, month: 5, year: 2018, hour: 0, minute: 0,
 });
 function getCurrentDT() {
   // return DateTime.fromObject({
@@ -13,7 +19,12 @@ function getCurrentDT() {
 }
 async function getTodayEvents() {
   const schedule = await getSchedule();
-  return getCurrentDT() > midnight24to25 ? schedule[1].events : schedule[0].events;
+  return getCurrentDT() > day2Start ? schedule[1].events : schedule[0].events;
+}
+
+function isLive() {
+  const currentDT = getCurrentDT();
+  return currentDT > day1Start && currentDT < day2End;
 }
 
 function getMainKeyboard(user) {
@@ -24,12 +35,15 @@ function getMainKeyboard(user) {
     [ { text: BTN_TEXTS.MAIN_MENU_INFO, callback_data: BTN_DATA.MAIN_MENU_INFO } ],
     [ { text: BTN_TEXTS.MAIN_MENU_EMERGENCY, callback_data: BTN_DATA.MAIN_MENU_EMERGENCY } ],
   ];
+  if (isLive()) {
+    keyboard.unshift();
+  }
   if (user.isAdmin) {
     keyboard.push(
-      [ { text: BTN_TEXTS.MAIN_MENU_ADMIN, callback_data: BTN_DATA.MAIN_MENU_ADMIN } ],
+      [ { text: BTN_TEXTS.MAIN_MENU_ADMIN, callback_data: BTN_DATA.MAIN_MENU_ADMIN } ]
     )
   }
   return keyboard;
 }
 
-module.exports = { getMainKeyboard, getTodayEvents, getCurrentDT };
+module.exports = { getMainKeyboard, getTodayEvents, getCurrentDT, isLive };
