@@ -35,7 +35,7 @@ module.exports = {
     lines.push(`<b>${day.title} – ${day.date}</b>`);
     lines.push('');
     day.events.forEach((event) => {
-      lines.push(`${event.emoji} ${getTime(event.startDT)} – ${getEventText(event)}`);
+      lines.push(`${event.emoji || ''} ${getTime(event.startDT)} – ${getEventText(event)}`);
     });
     return lines.join('\n');
   },
