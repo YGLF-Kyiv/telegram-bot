@@ -1,5 +1,6 @@
 'use strict';
 const express = require('express');
+const _ = require('lodash/fp');
 
 // Import replies and callback data
 const { getCallbackReply, getReply } = require('./replies/replies');
@@ -64,6 +65,7 @@ async function sendReply(message, reply) {
         reply.venue.longtitude,
         reply.venue.title,
         reply.venue.address,
+        reply.params
       );
     case 'send':
     default:
@@ -85,8 +87,11 @@ telegram.on('text', async (message) => {
     console.log(`-> Got a message "${text}" from ${from.first_name} ${from.last_name}, registered in DB "${user.id}"`);
 
 
-    const reply = await getAdminReply(text, user) || await getReply(text, user);
-    reply && await sendReply(message, reply);
+    let replies = await getAdminReply(text, user) || await getReply(text, user);
+    if (!_.isArray(replies)) { replies = [replies]; }
+    replies.forEach(async (reply) => {
+      reply && await sendReply(message, reply);
+    });
   } catch(e) {
     logError({ e, event: 'text', data: message});
   }
@@ -98,8 +103,11 @@ telegram.on('callback_query', async ({ id, message, data, from }) => {
 
     console.log(`-> Got a callback query "${data}" from ${from.first_name} ${from.last_name}, registered in DB "${user.id}"`);
 
-    const reply = await getAdminCallbackReply(data, user) || await getCallbackReply(data, user);
-    reply && await sendReply(message, reply);
+    let replies = await getAdminCallbackReply(data, user) || await getCallbackReply(data, user);
+    if (!_.isArray(replies)) { replies = [replies]; }
+    replies.forEach(async (reply) => {
+      reply && await sendReply(message, reply);
+    });
   } catch(e) {
     logError({ e, event: 'text', data: { id, message, data, from } });
   }

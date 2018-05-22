@@ -27,7 +27,7 @@ function isLive() {
   return currentDT > day1Start && currentDT < day2End;
 }
 
-function getMainKeyboard(user) {
+function getMainInlineKeyboard(user) {
   let keyboard = [
     [ { text: BTN_TEXTS.MAIN_MENU_WHATSON, callback_data: BTN_DATA.MAIN_MENU_WHATSON } ],
     [ { text: BTN_TEXTS.MAIN_MENU_ASK, callback_data: BTN_DATA.MAIN_MENU_ASK } ],
@@ -46,4 +46,14 @@ function getMainKeyboard(user) {
   return keyboard;
 }
 
-module.exports = { getMainKeyboard, getTodayEvents, getCurrentDT, isLive };
+function getMainKeyboard() {
+  return [
+    [ BTN_TEXTS.MAIN_MENU_WHATSON ],
+    [ BTN_TEXTS.MAIN_MENU_ASK ],
+    [ BTN_TEXTS.MAIN_MENU_SCHEDULE ],
+    [ BTN_TEXTS.MAIN_MENU_INFO ],
+    [ BTN_TEXTS.MAIN_MENU_EMERGENCY ],
+  ];
+}
+
+module.exports = { getMainKeyboard, getMainInlineKeyboard, getTodayEvents, getCurrentDT, isLive };
